@@ -3,7 +3,14 @@ const cryptoRoutes = require('./routes/cryptoRoutes');
 const bodyParser = require('body-parser');
 
 const app = express();
-app.use(bodyParser.json()); // Parse incoming JSON requests
+app.use(bodyParser.json({ limit: '50mb' })); // Parse incoming JSON requests
+app.use(
+   bodyParser.urlencoded({
+      limit: '50mb',
+      extended: true,
+      parameterLimit: 50000,
+   }),
+);
 
 app.use('/crypto', cryptoRoutes);
 
